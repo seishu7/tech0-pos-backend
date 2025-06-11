@@ -10,13 +10,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  MYSQL_HOST: $secret{(secrets.MYSQL_HOST)}
-  MYSQL_USER: $secret{(secrets.MYSQL_USER)}
-  MYSQL_PORT: $secret{(secrets.MYSQL_PORT)}
-  MYSQL_PASSWORD: $secret{(secrets.MYSQL_PASSWORD)}
-  MYSQL_DB: $secret{(secrets.MYSQL_DB)}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -75,4 +68,4 @@ jobs:
         with:
           app-name: 'app-step4-32'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9A58B159C1C94645A755E826F769CEB5 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6456EAF8E2C2451D9CC08D3F006B9715 }}
