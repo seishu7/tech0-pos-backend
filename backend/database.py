@@ -21,9 +21,8 @@ engine = create_engine(
     pool_pre_ping=True,
     pool_recycle=3600,
     connect_args={
-        "ssl_ca": ssl_cert_path
-    }
-)
+    "ssl_ca": ssl_cert_path
+}
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
