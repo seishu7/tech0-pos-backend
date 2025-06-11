@@ -1,35 +1,21 @@
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-from sqlalchemy.orm import declarative_base
-Base = declarative_base()
-
 from pathlib import Path
-from sqlalchemy import create_engine, Column, Integer, String, text
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 
+# .envファイル読み込み（ローカル開発用のみ）
+load_dotenv()
 
-load_dotenv()  # .env ファイルを読み込む
-
-MYSQL_USER = os.getenv("MYSQL_USER")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
-MYSQL_DB = os.getenv("MYSQL_DB")
-MYSQL_PORT= os.getenv("MYSQL_PORT")
+# 環境変数から接続URLを取得（AzureではApp Settingsで設定）
 DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
-    raise ValueError("DATABASE_URL is not set")
+    raise ValueError("❌ DATABASE_URL が環境変数に設定されていません。")
 
+# DigiCertのルート証明書（backend/ 配下に配置すること）
+ssl_cert_path = str(Path(__file__).parent / "DigiCertGlobalRootG2.crt.pem")
 
-# DigiCert のパスを backend/ 内から取得
-ssl_cert = str(Path(__file__).parent / "DigiCertGlobalRootG2.crt.pem")
-
-# MySQL接続文字列
-DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
-
-# SQLAlchemyエンジン
+# SQLAlchemyエンジンの作成
 engine = create_engine(
     DATABASE_URL,
     echo=True,
@@ -37,16 +23,18 @@ engine = create_engine(
     pool_recycle=3600,
     connect_args={
         "ssl": {
-            "ssl_ca": ssl_cert
+            "ssl_ca": ssl_cert_path
         }
     }
 )
 
-print("Current working directory:", os.getcwd())
-print("Certificate file exists:", os.path.exists('DigiCertGlobalRootG2.crt.pem'))
-
-
-#engine = create_engine(DATABASE_URL, echo=True, future=True)
+# セッション作成用ファクトリ
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# ベースクラス（モデル定義用）
 Base = declarative_base()
+
+# 確認用ログ（任意）
+print("✅ database.py: DATABASE_URL =", DATABASE_URL)
+print("📄 証明書パス:", ssl_cert_path)
+print("📄 証明書ファイル存在確認:", os.path.exists(ssl_cert_path))

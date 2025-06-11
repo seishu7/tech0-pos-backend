@@ -6,14 +6,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from backend import crud
 import os
-from datetime import datetime  # ← こちらも重複してOK
+import datetime  # ← こちらも重複してOK
+DATETIME=datetime.datetime.now()
+
+
+print("✅ DATABASE_URL:", os.getenv("DATABASE_URL"))
+
+try:
+    db_url = os.environ["DATABASE_URL"]
+    engine = create_engine(db_url)
+except KeyError:
+    raise RuntimeError("DATABASE_URL 環境変数が設定されていません")
 
 app = FastAPI()
 
 # CORS設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],  # 本番では限定すべき
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
