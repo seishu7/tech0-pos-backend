@@ -10,6 +10,13 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MYSQL_HOST: $secret{(secrets.MYSQL_HOST)}
+  MYSQL_USER: $secret{(secrets.MYSQL_USER)}
+  MYSQL_PORT: $secret{(secrets.MYSQL_PORT)}
+  MYSQL_PASSWORD: $secret{(secrets.MYSQL_PASSWORD)}
+  MYSQL_DB: $secret{(secrets.MYSQL_DB)}
+
 jobs:
   build:
     runs-on: ubuntu-latest
