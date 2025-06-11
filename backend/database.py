@@ -18,7 +18,7 @@ MYSQL_DB = os.getenv("MYSQL_DB")
 ssl_cert_path = "/home/site/wwwroot/backend/DigiCertGlobalRootG2.crt.pem"
 
 # DB接続URL構築
-DATABASE_URL=mysql+pymysql://tech0sql1:step4pos-2@rdbs-step4-australia-east.mysql.database.azure.com:3306/posdb?ssl_ca=/home/site/wwwroot/backend/DigiCertGlobalRootG2.crt.pem
+DATABASE_URL = "mysql+pymysql://tech0sql1:step4pos-2@rdbs-step4-australia-east.mysql.database.azure.com:3306/posdb?ssl_ca=/home/site/wwwroot/backend/DigiCertGlobalRootG2.crt.pem"
 
 # エンジン作成
 engine = create_engine(
