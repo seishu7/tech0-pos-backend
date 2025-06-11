@@ -1,6 +1,0 @@
-((venv) ) SeishunoMacBook-Air:Tech0_POSアプリデプロイ seishu$ /usr/local/mysql/bin/mysql\
->   -h rdbs-step4-australia-east.mysql.database.azure.com \
->   -u tech0sql1 \
->   -p \
->   --ssl-mode=REQUIRED \
->   --ssl-ca=backend/DigiCertGlobalRootG2.crt.pem

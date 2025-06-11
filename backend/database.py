@@ -19,6 +19,9 @@ MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
 MYSQL_DB = os.getenv("MYSQL_DB")
 MYSQL_PORT= os.getenv("MYSQL_PORT")
 DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
+
 
 # DigiCert のパスを backend/ 内から取得
 ssl_cert = str(Path(__file__).parent / "DigiCertGlobalRootG2.crt.pem")

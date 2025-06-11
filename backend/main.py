@@ -30,6 +30,10 @@ def get_db():
     finally:
         db.close()
 
+@app.get("/")
+def read_root():
+    return {"message": "FastAPI is running"}
+
 # 商品情報取得API
 @app.get("/product", response_model=schemas.ProductOut)
 def get_product(code: str, db: Session = Depends(get_db)):
