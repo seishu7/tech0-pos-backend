@@ -19,11 +19,7 @@ engine = create_engine(
     echo=True,
     pool_pre_ping=True,
     pool_recycle=3600,
-    connect_args={
-        "ssl": {
-            "ca": ssl_cert_path
-        }
-    }
+    # connect_argsは省略可能になる
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
