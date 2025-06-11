@@ -29,13 +29,14 @@ DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYS
 # SQLAlchemyエンジン
 engine = create_engine(
     DATABASE_URL,
+    echo=True,
+    pool_pre_ping=True,
+    pool_recycle=3600,
     connect_args={
         "ssl": {
             "ssl_ca": ssl_cert
         }
-    },
-    echo=True,
-    pool_pre_ping=True
+    }
 )
 
 print("Current working directory:", os.getcwd())
