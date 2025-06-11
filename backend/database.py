@@ -15,10 +15,11 @@ MYSQL_PORT = os.getenv("MYSQL_PORT", "3306")
 MYSQL_DB = os.getenv("MYSQL_DB")
 
 # 証明書を絶対パスで指定
-ssl_cert_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "DigiCertGlobalRootG2.crt.pem"))
+ssl_ca=/home/site/wwwroot/backend/DigiCertGlobalRootG2.crt.pem
+
 
 # DB接続URL構築
-DATABASE_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
+DATABASE_URL=mysql+pymysql://tech0sql1:step4pos-2@rdbs-step4-australia-east.mysql.database.azure.com:3306/posdb?ssl_ca=/home/site/wwwroot/backend/DigiCertGlobalRootG2.crt.pem
 
 # エンジン作成
 engine = create_engine(
